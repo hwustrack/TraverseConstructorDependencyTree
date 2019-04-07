@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TraverseConstructorDependencyTree": {
+      "commandName": "Project",
+      "commandLineArgs": "/FileToInspect=\"C:\\Users\\hwustrack\\source\\Parse\\Master\\ServiceFabricCommon\\bin\\Debug\\net462\\ServiceFabricCommon.dll\" /TypeToInspect=ServiceFabricCommon.TopicRepositoryOperations"
+    }
+  }
+}
