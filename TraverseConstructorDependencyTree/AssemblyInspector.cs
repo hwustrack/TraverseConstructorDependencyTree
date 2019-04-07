@@ -31,14 +31,15 @@ namespace TraverseConstructorDependencyTree
                     if (parameterInfo.ParameterType.IsInterface)
                     {
                         Type interfaceType = parameterInfo.ParameterType;
-                        List<Type> assignableTypes = interfaceType.Assembly.GetLoadableTypes()
-                            .Where(t => !t.IsInterface && interfaceType.IsAssignableFrom(t))
-                            .ToList();
-                        Type assumedType = assignableTypes.FirstOrDefault();
-                        if (assumedType != null)
+                        IEnumerable<Type> assignableTypes = interfaceType.Assembly.GetLoadableTypes()
+                            .Where(t => !t.IsInterface && interfaceType.IsAssignableFrom(t));
+                        if (assignableTypes.Any())
                         {
-                            Console.WriteLine($"{outputPrefix}{interfaceType.Name} - {assumedType.Name}");
-                            RecurseConstructorDepdencies(assumedType, outputPrefix + "\t");
+                            foreach (Type assignableType in assignableTypes)
+                            {
+                                Console.WriteLine($"{outputPrefix}{interfaceType.Name} - {assignableType.Name}");
+                                RecurseConstructorDepdencies(assignableType, outputPrefix + "\t");
+                            }
                         }
                         else
                         {
