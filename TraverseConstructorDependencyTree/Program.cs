@@ -49,8 +49,6 @@ namespace TraverseConstructorDependencyTree
                 PrintHelpText();
                 return;
             }
-
-            //if ()
         }
 
         private static void PrintHelpText()
