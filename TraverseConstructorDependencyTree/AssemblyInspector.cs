@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace TraverseConstructorDependencyTree
 {
+    /// <summary>
+    /// Class to inspect an assembly.
+    /// </summary>
     public class AssemblyInspector
     {
-        private Assembly _assemblyToInspect;
-
-        public AssemblyInspector(Assembly assemblyToInspect)
-        {
-            _assemblyToInspect = assemblyToInspect ?? throw new ArgumentNullException(nameof(assemblyToInspect));
-        }
-
+        /// <summary>
+        /// Recurse through the constructors of each type found in the constructor of the given type
+        /// </summary>
+        /// <param name="typeToInspect">Type to inspect</param>
         public void TraverseContructorDependencies(Type typeToInspect)
         {
             Console.WriteLine(typeToInspect.Name);
@@ -52,23 +51,6 @@ namespace TraverseConstructorDependencyTree
                         RecurseConstructorDepdencies(parameterInfo.ParameterType, outputPrefix + "\t");
                     }
                 }
-            }
-        }
-    }
-
-    // https://stackoverflow.com/a/29379834
-    public static class TypeLoaderExtensions
-    {
-        public static IEnumerable<Type> GetLoadableTypes(this Assembly assembly)
-        {
-            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
-            try
-            {
-                return assembly.GetTypes();
-            }
-            catch (ReflectionTypeLoadException e)
-            {
-                return e.Types.Where(t => t != null);
             }
         }
     }

@@ -5,14 +5,14 @@ using System.Reflection;
 
 namespace TraverseConstructorDependencyTree
 {
-    class Program
+    public class Program
     {
         public const string FileToInspectFlag = "FileToInspect";
         public const string TypeToInspectFlag = "TypeToInspect";
         public static readonly string[] SupportedFileExtensions = new[] { ".exe", ".dll" };
         public static readonly string[] RequiredFlags = new[] { FileToInspectFlag, TypeToInspectFlag };
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .AddCommandLine(args)
@@ -34,7 +34,7 @@ namespace TraverseConstructorDependencyTree
                     Assembly assemblyToInspect = Assembly.LoadFrom(assemblyPathToInspect);
                     Type typeToInspect = assemblyToInspect.GetType(typeNameToInspect, true);
 
-                    AssemblyInspector inspector = new AssemblyInspector(assemblyToInspect);
+                    AssemblyInspector inspector = new AssemblyInspector();
                     inspector.TraverseContructorDependencies(typeToInspect);
                 }
                 catch (Exception ex)
